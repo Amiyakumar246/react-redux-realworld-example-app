@@ -12,6 +12,10 @@ phases:
     commands:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 421320058418.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=421320058418.dkr.ecr.us-east-1.amazonaws.com/amiya-ecr
+      - docker pull 421320058418.dkr.ecr.us-east-1.amazonaws.com/amiya-ecr:node
+      - docker tag 421320058418.dkr.ecr.us-east-1.amazonaws.com/amiya-ecr:node node:alpine3.14
+      - docker pull 421320058418.dkr.ecr.us-east-1.amazonaws.com/amiya-ecr:nginx
+      - docker tag 421320058418.dkr.ecr.us-east-1.amazonaws.com/amiya-ecr:nginx nginx:alpine
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-10)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
